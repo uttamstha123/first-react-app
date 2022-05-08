@@ -1,7 +1,7 @@
 const UserModel = require("../models/User");
 
-const getUser = (req, res) => {
-  UserModel.find({}, (err, result) => {
+const getUser = async (req, res) => {
+  await UserModel.find({}, (err, result) => {
     if (err) {
       res.json(err);
     } else {
@@ -16,7 +16,7 @@ const setUser = async (req, res) => {
     res.status(400);
     throw new Error("Please do the necessary");
   }
-  console.log('Got User Detail')
+  console.log("Got User Detail");
   const user = req.body;
   // pass the data through our model
   const newUser = new UserModel(user);
@@ -25,4 +25,27 @@ const setUser = async (req, res) => {
   res.json(user);
 };
 
-module.exports = { getUser, setUser };
+const updateUser = async (req, res) => {
+  const user = await UserModel.findById(req.params.id);
+  if (!user) {
+    res.status(400);
+    throw new Error("user not found");
+  }
+  const updateUser = await UserModel.findByIdAndUpdate(
+    req.params.id,
+    req.body,
+    { new: true } //
+  );
+  res.json(updateUser);
+};
+
+const deleteUser = async (req, res) => {
+  const user = await UserModel.findById(req.params.id);
+  if (!user) {
+    res.status(400);
+    throw new Error("User does not exists");
+  }
+  const deletedUser = await UserModel.findByIdAndDelete(req.params.id);
+  res.json(deletedUser);
+};
+module.exports = { getUser, setUser, updateUser, deleteUser };
