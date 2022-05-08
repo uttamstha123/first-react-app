@@ -7,14 +7,14 @@ function App() {
   const [username, setUsername] = useState("");
   useEffect(() => {
     // making connection to server
-    Axios.get("http://localhost:3001/getUsers").then((res) => {
+    Axios.get("http://localhost:3001/api/").then((res) => {
       console.log("get request");
       setUsers(res.data);
     });
   }, []);
 
   function createUser() {
-    Axios.post("http://localhost:3001/createUser", {
+    Axios.post("http://localhost:3001/api/", {
       name,
       age,
       username,
