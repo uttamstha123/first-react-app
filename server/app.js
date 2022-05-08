@@ -19,3 +19,6 @@ app.use(errorHandler);
 
 // connection to DB
 connectDB();
+app.listen(process.env.PORT || 3001, () => {
+  console.log("Server is Listening");
+});
