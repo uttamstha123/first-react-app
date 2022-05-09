@@ -12,9 +12,3 @@ const connectDB = async () => {
 };
 
 module.exports = connectDB;
-
-/*
-git remote add origin https://github.com/uttamstha123/mern-stack.git
-git branch -M main
-git push -u origin main
-*/
